@@ -280,67 +280,36 @@
 // nouveau tableau qui contient uniquement les nombres premiers présents dans le
 // tableau d'origine.
 
-import java.util.*;
+//on crée un tableau,on le parcourt et pr chaque nbre premier on rajoute un arraylist, et avec stream on convertit arraylist en array
+import java.util.ArrayList;
 
-public static LinkedList<Integer> pair(LinkedList<Integer> tableau){
-        Iterator<Integer> iterator = tableau.iterator();
-
-        while (iterator.hasNext()) {
-             Integer element = iterator.next();
-             if (element % 2 == 0) {
-                iterator.remove();
-             }
-        }
-        return tableau;
-    }
-
-    public static boolean heyooh(int[] tab, int cible){
-        Arrays.sort(tab);
-        return Arrays.binarySearch(tab, cible) >= 0;
-    }
-
-    public static int present(ArrayList<String> list, String cible){
-        // boolean existe = list.contains(cible);
-        if (list.contains(cible)) {
-            // for (int i = 0; i < list.size(); i++) {
-            //     if (list.get(i)==cible) {
-            //         return i;
-            //     }
-            // }
-                return list.indexOf(cible);
-        }
-        return -1;
-    }
-
-
-    public static void somme(int[] tab){
-        int somme = 0;
-
-        for (int i : tab){
-            somme = somme + i;
-        }
-        System.out.println(somme);
-    }
-
-    public static void listeLongue(ArrayList<String> list){
-        String taille= "";
-        for (String test : list) {
-            if (test.length() > taille.length()) {
-                taille = test;
+public class AppExo {
+    public static int[] premierTab(int[] tab) {
+        ArrayList<Integer> arrayList = new ArrayList<>();
+        for (int i : tab) {
+            if (isPremier(i)) {
+                arrayList.add(i);
+                /// System.out.println("estPremier : " + i);
             }
         }
-        System.out.println(taille);
+        // Integer[] bar = arrayList.toArray(new Integer[arrayList.size()]);
+        int[] arr = new int[arrayList.size()];
+        for (int i = 0; i < arrayList.size(); i++) {
+            arr[i] = arrayList.get(i);
+        }
+        return arr;
+        // return arrayList.stream().mapToInt(i->i).toArray();
     }
 
-    public static int getSize(LinkedList<Object> linkedList){
-        return linkedList.size();
-    }
-
-    public static boolean compareValeurTableau(int[] tableauTest2, int number){
-        for(int element : tableauTest2){
-            if(element == number){
-                return true;
+    public static boolean isPremier(int n) {
+        if (n <= 1) {
+            return false;
+        }
+        for (int i = 2; i <= Math.sqrt(n); i++) {
+            if (n % i == 0) {
+                return false;
             }
         }
-        return false;
+        return true;
     }
+}
